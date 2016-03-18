@@ -72,6 +72,27 @@ namespace Framework.Common.Ioc
         /// 
         /// </summary>
         /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementer"></typeparam>
+        /// <param name="instance"></param>
+        /// <param name="serviceName"></param>
+        public void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            ContainerBuilder builder = new ContainerBuilder();
+
+            var registrationBuilder = builder.RegisterInstance(instance).As<TService>().SingleInstance();
+
+            if (serviceName != null)
+                registrationBuilder.Named<TService>(serviceName);
+
+            builder.Update(_container);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
         /// <param name="serviceName"></param>
         /// <returns></returns>
         public TService Resolve<TService>(string serviceName = null) where TService : class

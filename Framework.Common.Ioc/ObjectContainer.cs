@@ -26,6 +26,13 @@ namespace Framework.Common.Ioc
             _container.Register<TService, TImplementer>(serviceName, life);
         }
 
+        public static void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            _container.RegisterInstance<TService, TImplementer>(instance, serviceName);
+        }
+
         public static TService Resolve<TService>(string serviceName = null) where TService : class
         {
             return _container.Resolve<TService>(serviceName);

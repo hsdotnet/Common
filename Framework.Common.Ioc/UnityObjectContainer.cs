@@ -58,6 +58,23 @@ namespace Framework.Common.Ioc
         /// 
         /// </summary>
         /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementer"></typeparam>
+        /// <param name="instance"></param>
+        /// <param name="serviceName"></param>
+        public void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            if (string.IsNullOrWhiteSpace(serviceName))
+                this._container.RegisterInstance<TService>(instance, GetLifetimeManager(LifeStyle.Singleton));
+            else
+                this._container.RegisterInstance<TService>(serviceName, instance, GetLifetimeManager(LifeStyle.Singleton));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
         /// <param name="serviceName"></param>
         /// <returns></returns>
         public TService Resolve<TService>(string serviceName = null) where TService : class

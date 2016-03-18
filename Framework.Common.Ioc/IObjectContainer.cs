@@ -28,6 +28,17 @@ namespace Framework.Common.Ioc
         /// 
         /// </summary>
         /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementer"></typeparam>
+        /// <param name="instance"></param>
+        /// <param name="serviceName"></param>
+        void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null)
+            where TService : class
+            where TImplementer : class, TService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
         /// <param name="serviceName"></param>
         /// <returns></returns>
         TService Resolve<TService>(string serviceName = null) where TService : class;

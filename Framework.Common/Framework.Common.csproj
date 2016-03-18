@@ -34,6 +34,11 @@
       <HintPath>..\..\..\Components\NPOI\2.1.3.1\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Components\Newtonsoft.Json\8.0.2\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\..\Components\NPOI\2.1.3.1\NPOI.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -61,14 +66,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Configuration.cs" />
+    <Compile Include="Configurations\ConfigurationExtensions.cs" />
     <Compile Include="Encrypt\AESEncrypt.cs" />
     <Compile Include="Encrypt\DESEncrypt.cs" />
     <Compile Include="Encrypt\MD5Encrypt.cs" />
+    <Compile Include="Helper\EnsureHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Helper\Singleton.cs" />
     <Compile Include="Helper\StringHelper.cs" />
+    <Compile Include="Helper\ActionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\IObjectSerializer.cs" />
+    <Compile Include="Serialization\JsonObjectSerializer.cs" />
+    <Compile Include="Serialization\XmlObjectSerializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.Common.Ioc\Framework.Common.Ioc.csproj">
+      <Project>{c5d9fbc7-569a-4c98-a5c3-82df0fe7f929}</Project>
+      <Name>Framework.Common.Ioc</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.Common.Logger\Framework.Common.Logger.csproj">
+      <Project>{e212d244-1c53-4e19-a806-de33103fcf0d}</Project>
+      <Name>Framework.Common.Logger</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
