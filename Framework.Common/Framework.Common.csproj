@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="NPOI.OOXML">
       <HintPath>..\..\..\Components\NPOI\2.1.3.1\NPOI.OOXML.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
       <HintPath>..\..\..\Components\NPOI\2.1.3.1\NPOI.OpenXml4Net.dll</HintPath>
@@ -92,6 +93,7 @@
     <ProjectReference Include="..\Framework.Common.Logger\Framework.Common.Logger.csproj">
       <Project>{e212d244-1c53-4e19-a806-de33103fcf0d}</Project>
       <Name>Framework.Common.Logger</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
