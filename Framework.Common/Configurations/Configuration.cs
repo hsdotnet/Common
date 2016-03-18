@@ -30,5 +30,11 @@ namespace Framework.Common.Configurations
             ObjectContainer.RegisterInstance<TService, TImplementer>(instance, serviceName);
             return this;
         }
+
+        public Configuration RegisterCommonComponents()
+        {
+            //SetDefault<IScheduleService, QuartzScheduleService>(null, LifeStyle.Transient);
+            return this;
+        }
     }
 }

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Aop", "Fra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Test", "Framework.Common.Test\Framework.Common.Test.csproj", "{E8783894-548C-44B1-B01C-7497F0E8CDBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Scheduler", "Framework.Common.Scheduler\Framework.Common.Scheduler.csproj", "{571E9F42-A909-400E-B851-5BFD2E0815A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E8783894-548C-44B1-B01C-7497F0E8CDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8783894-548C-44B1-B01C-7497F0E8CDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8783894-548C-44B1-B01C-7497F0E8CDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{571E9F42-A909-400E-B851-5BFD2E0815A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{571E9F42-A909-400E-B851-5BFD2E0815A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{571E9F42-A909-400E-B851-5BFD2E0815A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{571E9F42-A909-400E-B851-5BFD2E0815A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

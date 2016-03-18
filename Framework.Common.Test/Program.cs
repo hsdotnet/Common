@@ -1,26 +1,50 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 using Framework.Common.Serialization;
 using Framework.Common.Configurations;
 using Framework.Common.Logger;
 using Framework.Common.Ioc;
+using Framework.Common.Scheduler;
 
 namespace Framework.Common.Test
 {
+
     class Program
     {
         private static ILogger _logger;
 
         private static IObjectSerializer _serializer;
 
+        private static IScheduleService _schedule;
+
+        
+
         static void Main(string[] args)
         {
+
             Init();
 
+            _schedule = ObjectContainer.Resolve<IScheduleService>();
+
+            _schedule.StartTask<OrderJob>("测试", 3);
+        }
+
+        static void Method2()
+        {
+            using (StreamWriter sw = new StreamWriter(@"F:\Code\dotnet\Common\Framework.Common.Test\bin\Debug\logs\a.txt", true, Encoding.UTF8))
+            {
+                sw.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            }
+        }
+
+        static void Method1()
+        {
             _logger = ObjectContainer.Resolve<ILoggerFactory>().CreateLogger(typeof(Program).Name);
 
             _serializer = ObjectContainer.Resolve<IObjectSerializer>();
@@ -32,15 +56,26 @@ namespace Framework.Common.Test
             Console.WriteLine(json);
 
             _logger.Info("测试", "哈哈");
-
         }
 
         static void Init()
         {
             Configuration.GetInstance()
-                .UseAutofac()
-                .UseJsonNet()
-                .UseLog4Net();
+               .UseAutofac()
+               .UseJsonNet()
+               .UseLog4Net()
+               .RegisterCommonComponents()
+               .SetDefault<IScheduleService, QuartzScheduleService>();
+        }
+    }
+
+    public class OrderJob : BaseJob
+    {
+        public override void DoWork()
+        {
+            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            ObjectContainer.Resolve<IScheduleService>().StopTask("测试");
         }
     }
 
