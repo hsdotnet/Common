@@ -20,7 +20,7 @@ namespace Framework.Common.Ioc
         /// <typeparam name="TImplementer"></typeparam>
         /// <param name="serviceName"></param>
         /// <param name="life"></param>
-        void Register<TService, TImplementer>(string serviceName = null, LifeStyle life = LifeStyle.WeakReferenceRequest)
+        void Register<TService, TImplementer>(string serviceName = null, LifeStyle life = LifeStyle.Singleton)
             where TService : class
             where TImplementer : class, TService;
 
@@ -31,7 +31,8 @@ namespace Framework.Common.Ioc
         /// <typeparam name="TImplementer"></typeparam>
         /// <param name="instance"></param>
         /// <param name="serviceName"></param>
-        void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null)
+        /// <param name="life"></param>
+        void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null, LifeStyle life = LifeStyle.Singleton)
             where TService : class
             where TImplementer : class, TService;
 
