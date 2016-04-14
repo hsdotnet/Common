@@ -1,6 +1,6 @@
 ﻿namespace Framework.Common.Logger
 {
-    public enum LoggerLevel
+    internal enum LoggerLevel
     {
         /// <summary>
         /// 
