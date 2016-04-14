@@ -22,6 +22,11 @@ namespace Framework.Common.Ioc
         }
         #endregion
 
+        public IContainer Container
+        {
+            get { return this._container; }
+        }
+
         #region IObjectContainer 成员
 
         public void InitializeFromConfigFile(string sectionName = null)

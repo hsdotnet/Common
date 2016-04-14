@@ -7,7 +7,7 @@ namespace Framework.Common.Ioc
     /// </summary>
     public class ObjectContainer
     {
-        private static IObjectContainer _container;
+        public static IObjectContainer _container { get; private set; }
 
         public static void SetContainer(IObjectContainer container)
         {
