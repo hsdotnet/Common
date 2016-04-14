@@ -30,7 +30,7 @@ namespace Framework.Common.Ioc
         /// <param name="sectionName"></param>
         public void InitializeFromConfigFile(string sectionName = null)
         {
-            if (string.IsNullOrWhiteSpace(sectionName)) { sectionName = UnityConfigurationSection.SectionName; }
+            if (sectionName == null) { sectionName = UnityConfigurationSection.SectionName; }
 
             UnityConfigurationSection section = (UnityConfigurationSection)ConfigurationManager.GetSection(sectionName);
 
@@ -48,7 +48,7 @@ namespace Framework.Common.Ioc
             where TService : class
             where TImplementer : class, TService
         {
-            if (string.IsNullOrWhiteSpace(serviceName))
+            if (serviceName == null)
                 this._container.RegisterType<TService, TImplementer>(GetLifetimeManager(life));
             else
                 this._container.RegisterType<TService, TImplementer>(serviceName, GetLifetimeManager(life));
@@ -61,14 +61,15 @@ namespace Framework.Common.Ioc
         /// <typeparam name="TImplementer"></typeparam>
         /// <param name="instance"></param>
         /// <param name="serviceName"></param>
-        public void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null)
+        /// <param name="life"></param>
+        public void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null, LifeStyle life = LifeStyle.Singleton)
             where TService : class
             where TImplementer : class, TService
         {
-            if (string.IsNullOrWhiteSpace(serviceName))
+            if (serviceName == null)
                 this._container.RegisterInstance<TService>(instance, GetLifetimeManager(LifeStyle.Singleton));
             else
-                this._container.RegisterInstance<TService>(serviceName, instance, GetLifetimeManager(LifeStyle.Singleton));
+                this._container.RegisterInstance<TService>(serviceName, instance, GetLifetimeManager(life));
         }
 
         /// <summary>
@@ -79,7 +80,7 @@ namespace Framework.Common.Ioc
         /// <returns></returns>
         public TService Resolve<TService>(string serviceName = null) where TService : class
         {
-            if (string.IsNullOrWhiteSpace(serviceName))
+            if (serviceName == null)
                 return this._container.Resolve<TService>();
             else
                 return this._container.Resolve<TService>(serviceName);

@@ -14,11 +14,22 @@ namespace Framework.Common.Ioc
             _container = container;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sectionName"></param>
         public static void InitializeFromConfigFile(string sectionName = null)
         {
             _container.InitializeFromConfigFile(sectionName);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementer"></typeparam>
+        /// <param name="serviceName"></param>
+        /// <param name="life"></param>
         public static void Register<TService, TImplementer>(string serviceName = null, LifeStyle life = LifeStyle.WeakReferenceRequest)
             where TService : class
             where TImplementer : class, TService
@@ -26,11 +37,19 @@ namespace Framework.Common.Ioc
             _container.Register<TService, TImplementer>(serviceName, life);
         }
 
-        public static void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementer"></typeparam>
+        /// <param name="instance"></param>
+        /// <param name="serviceName"></param>
+        /// <param name="life"></param>
+        public static void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null, LifeStyle life = LifeStyle.Singleton)
             where TService : class
             where TImplementer : class, TService
         {
-            _container.RegisterInstance<TService, TImplementer>(instance, serviceName);
+            _container.RegisterInstance<TService, TImplementer>(instance, serviceName, life);
         }
 
         public static TService Resolve<TService>(string serviceName = null) where TService : class

@@ -11,6 +11,7 @@ using Framework.Common.Configurations;
 using Framework.Common.Logger;
 using Framework.Common.Ioc;
 using Framework.Common.Scheduler;
+using Framework.Common.Helper;
 
 namespace Framework.Common.Test
 {
@@ -27,6 +28,9 @@ namespace Framework.Common.Test
 
         static void Main(string[] args)
         {
+            string str = null;
+
+            EnsureHelper.NotNull(str, "用户名");
 
             Init();
 
@@ -75,7 +79,7 @@ namespace Framework.Common.Test
         {
             Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
-            ObjectContainer.Resolve<IScheduleService>().StopTask("测试");
+            //ObjectContainer.Resolve<IScheduleService>().StopTask("测试");
         }
     }
 

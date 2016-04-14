@@ -36,7 +36,7 @@ namespace Framework.Common.Ioc
         /// <typeparam name="TImplementer"></typeparam>
         /// <param name="serviceName"></param>
         /// <param name="life"></param>
-        public void Register<TService, TImplementer>(string serviceName = null, LifeStyle life = LifeStyle.WeakReferenceRequest)
+        public void Register<TService, TImplementer>(string serviceName = null, LifeStyle life = LifeStyle.Singleton)
             where TService : class
             where TImplementer : class, TService
         {
@@ -44,7 +44,7 @@ namespace Framework.Common.Ioc
 
             var registrationBuilder = _builder.RegisterType<TImplementer>().As<TService>();
 
-            if (!string.IsNullOrWhiteSpace(serviceName)) { registrationBuilder.Named<TService>(serviceName); }
+            if (serviceName != null) { registrationBuilder.Named<TService>(serviceName); }
 
             switch (life)
             {
@@ -75,16 +75,35 @@ namespace Framework.Common.Ioc
         /// <typeparam name="TImplementer"></typeparam>
         /// <param name="instance"></param>
         /// <param name="serviceName"></param>
-        public void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null)
+        /// <param name="life"></param>
+        public void RegisterInstance<TService, TImplementer>(TImplementer instance, string serviceName = null, LifeStyle life = LifeStyle.Singleton)
             where TService : class
             where TImplementer : class, TService
         {
             ContainerBuilder builder = new ContainerBuilder();
 
-            var registrationBuilder = builder.RegisterInstance(instance).As<TService>().SingleInstance();
+            var registrationBuilder = builder.RegisterInstance(instance).As<TService>();
 
-            if (serviceName != null)
-                registrationBuilder.Named<TService>(serviceName);
+            if (serviceName != null) { registrationBuilder.Named<TService>(serviceName); }
+
+            switch (life)
+            {
+                case LifeStyle.Transient:
+                    registrationBuilder.InstancePerDependency();
+                    break;
+                case LifeStyle.WeakReferenceRequest:
+                    registrationBuilder.InstancePerLifetimeScope();
+                    break;
+                case LifeStyle.Singleton:
+                    registrationBuilder.SingleInstance();
+                    break;
+                case LifeStyle.InThread:
+                    registrationBuilder.InstancePerRequest();
+                    break;
+                default:
+                    registrationBuilder.InstancePerLifetimeScope();
+                    break;
+            }
 
             builder.Update(_container);
         }
@@ -97,7 +116,7 @@ namespace Framework.Common.Ioc
         /// <returns></returns>
         public TService Resolve<TService>(string serviceName = null) where TService : class
         {
-            if (string.IsNullOrWhiteSpace(serviceName))
+            if (serviceName == null)
                 return this._container.Resolve<TService>();
             else
                 return this._container.ResolveNamed<TService>(serviceName);
