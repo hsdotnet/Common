@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 
 namespace Framework.Common.Helper
@@ -7,15 +7,37 @@ namespace Framework.Common.Helper
     {
         public static TimeSpan StopwatchAction(Action action)
         {
-            Stopwatch st = new Stopwatch();
+            Stopwatch watch = new Stopwatch();
 
-            st.Start();
+            watch.Start();
 
             action();
 
-            st.Stop();
+            watch.Stop();
 
-            return st.Elapsed;
+            return watch.Elapsed;
+        }
+
+        public static void EatException(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        public static T EatException<T>(Func<T> action, T defaultValue = default(T))
+        {
+            try
+            {
+                return action();
+            }
+            catch (Exception)
+            {
+                return defaultValue;
+            }
         }
     }
 }

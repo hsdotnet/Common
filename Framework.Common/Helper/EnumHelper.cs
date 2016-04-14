@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,26 +7,23 @@ using System.Reflection;
 
 namespace Framework.Common.Helper
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public sealed class EnumHelper
     {
         /// <summary>
         /// 
         /// </summary>
-        private static readonly ConcurrentDictionary<Type, List<EnumDTO>> dic = new ConcurrentDictionary<Type, List<EnumDTO>>();
+        private static readonly ConcurrentDictionary<Type, List<EnumDTO>> _enumDict = new ConcurrentDictionary<Type, List<EnumDTO>>();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="enumType"></param>
         /// <returns></returns>
-        public static IEnumerable<EnumDTO> GetEnumDTO(Type enumType)
+        public static IEnumerable<EnumDTO> GetEnumVO(Type enumType)
         {
             List<EnumDTO> list;
 
-            if (dic.TryGetValue(enumType, out list)) { return list; }
+            if (_enumDict.TryGetValue(enumType, out list)) { return list; }
 
             list = new List<EnumDTO>();
 
@@ -38,16 +35,16 @@ namespace Framework.Common.Helper
 
                 DescriptionAttribute attribute = field.GetCustomAttribute(typeof(DescriptionAttribute), true) as DescriptionAttribute;
 
-                EnumDTO vo = new EnumDTO();
+                EnumDTO dto = new EnumDTO();
 
-                vo.Id = (int)field.GetRawConstantValue();
+                dto.Id = (int)field.GetRawConstantValue();
 
-                vo.Description = attribute == null ? field.Name : attribute.Description;
+                dto.Description = attribute == null ? field.Name : attribute.Description;
 
-                list.Add(vo);
+                list.Add(dto);
             }
 
-            dic.TryAdd(enumType, list);
+            _enumDict.TryAdd(enumType, list);
 
             return list;
         }
@@ -58,7 +55,7 @@ namespace Framework.Common.Helper
 
             List<EnumDTO> list;
 
-            if (!dic.TryGetValue(enumType, out list))
+            if (!_enumDict.TryGetValue(enumType, out list))
             {
                 FieldInfo field = value.GetType().GetField(value.ToString());
 
