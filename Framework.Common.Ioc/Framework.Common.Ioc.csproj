@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\..\..\Components\Autofac\3.5.2\Autofac.dll</HintPath>
+      <HintPath>..\..\..\Components\Autofac\3.4.0\Autofac.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">

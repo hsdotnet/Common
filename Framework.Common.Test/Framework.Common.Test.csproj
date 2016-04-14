@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\..\..\Components\Autofac\3.5.2\Autofac.dll</HintPath>
+      <HintPath>..\..\..\Components\Autofac\3.4.0\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\Components\Quartz\2.3.3\Common.Logging.dll</HintPath>
