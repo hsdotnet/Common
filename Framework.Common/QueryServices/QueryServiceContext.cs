@@ -17,7 +17,7 @@ namespace Framework.Common.QueryServices
         /// <summary>
         /// 连接字符串
         /// </summary>
-        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["OMSReadDB"].ConnectionString;
+        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["QueryDB"].ConnectionString;
 
         /// <summary>
         /// 获取单条记录

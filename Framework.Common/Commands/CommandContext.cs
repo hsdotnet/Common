@@ -16,7 +16,7 @@ namespace Framework.Common.Commands
         /// <summary>
         /// 连接字符串
         /// </summary>
-        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["OMSWriteDB"].ConnectionString;
+        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["CommandDB"].ConnectionString;
 
         /// <summary>
         /// 数据库连接对象
