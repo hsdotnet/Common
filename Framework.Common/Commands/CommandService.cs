@@ -18,11 +18,11 @@ namespace Framework.Common.Commands
         /// <typeparam name="TPrimaryKey">主键类型</typeparam>
         /// <param name="command">命令对象</param>
         /// <returns>命令结果对象</returns>
-        public CommandResult<TPrimaryKey> Execute<TCommand, TPrimaryKey>(TCommand command) where TCommand : ICommand<TPrimaryKey>
+        public CommandResult Execute<TCommand, TPrimaryKey>(TCommand command) where TCommand : ICommand<TPrimaryKey>
         {
             ICommandContext context = ObjectContainer.Resolve<ICommandContext>();
 
-            CommandResult<TPrimaryKey> commandResult;
+            CommandResult commandResult;
 
             try
             {
@@ -35,7 +35,7 @@ namespace Framework.Common.Commands
                     context.Commit();
                 });
 
-                commandResult = new CommandResult<TPrimaryKey>(command.AggregateRoot, command.Id, CommandStatus.Success, ts.Milliseconds);
+                commandResult = new CommandResult(command.AggregateRoot, command.Id.ToString(), CommandStatus.Success, ts.Milliseconds);
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace Framework.Common.Commands
 
                 context.Rollback();
 
-                commandResult = new CommandResult<TPrimaryKey>(command.AggregateRoot, CommandStatus.Failed, result: ex.Message);
+                commandResult = new CommandResult(command.AggregateRoot, CommandStatus.Failed, result: ex.Message);
             }
             finally
             {
@@ -60,7 +60,7 @@ namespace Framework.Common.Commands
         /// </summary>
         /// <typeparam name="TPrimaryKey">命令主键类型</typeparam>
         /// <param name="command">命令对象</param>
-        private void SaveCommand<TPrimaryKey>(CommandResult<TPrimaryKey> command)
+        private void SaveCommand(CommandResult command)
         {
             new CommandResultContext().AddCommand(command);
         }

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Linq;
+using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 
@@ -19,15 +20,27 @@ namespace Framework.Common.Commands
         /// <summary>
         /// 持久化命令对象
         /// </summary>
-        /// <typeparam name="TPrimaryKey">主键Id</typeparam>
         /// <param name="commandResult">命令结果对象</param>
-        public void AddCommand<TPrimaryKey>(CommandResult<TPrimaryKey> commandResult)
+        public void AddCommand(CommandResult commandResult)
         {
             using (IDbConnection connection = new SqlConnection(this._connectionString))
             {
                 connection.Open();
 
                 connection.Execute("INSERT INTO [Sys_Command] ([AggregateRootId], [AggregateRoot], [CommandStatus], [CommandResult], [CommandTime]) VALUES (@AggregateRootId, @AggregateRoot, @Status, @Result, @CommandTime)", commandResult);
+            }
+        }
+
+        /// <summary>
+        /// 获取命令结果对象
+        /// </summary>
+        /// <param name="id">主键Id</param>
+        /// <returns>命令结果对象</returns>
+        public CommandResult Get(long id)
+        {
+            using (IDbConnection connection = new SqlConnection(this._connectionString))
+            {
+                return connection.Query<CommandResult>("SELECT AggregateRootId,AggregateRoot,CommandStatus [Status],CommandResult Result,CommandTime,CreateTime FROM Sys_Command WHERE CommandId = @Id", new { Id = id }).FirstOrDefault();
             }
         }
     }

@@ -1,10 +1,11 @@
-﻿namespace Framework.Common.Commands
+﻿using System;
+
+namespace Framework.Common.Commands
 {
     /// <summary>
     /// 命令结果对象
     /// </summary>
-    /// <typeparam name="TPrimaryKey">聚合根对象主键类型</typeparam>
-    public class CommandResult<TPrimaryKey>
+    public class CommandResult
     {
         /// <summary>
         /// 命令状态
@@ -24,12 +25,17 @@
         /// <summary>
         /// 聚合根主键
         /// </summary>
-        public TPrimaryKey AggregateRootId { get; private set; }
+        public string AggregateRootId { get; private set; }
 
         /// <summary>
         /// 命令执行时间
         /// </summary>
         public int CommandTime { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime CreateTime { get; private set; }
 
         /// <summary>
         /// 构造函数
@@ -61,7 +67,7 @@
         /// <param name="status">命令状态</param>
         /// <param name="commandTime">命令执行时间</param>
         /// <param name="result">执行结果</param>
-        public CommandResult(string aggregateRoot, TPrimaryKey aggregateRootId, CommandStatus status, int commandTime = 0, string result = null)
+        public CommandResult(string aggregateRoot, string aggregateRootId, CommandStatus status, int commandTime = 0, string result = null)
             : this(aggregateRoot, status, commandTime, result)
         {
             this.AggregateRootId = aggregateRootId;
