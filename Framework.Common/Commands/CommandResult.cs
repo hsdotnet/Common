@@ -42,6 +42,7 @@ namespace Framework.Common.Commands
         /// </summary>
         public CommandResult()
         {
+            this.Status = CommandStatus.None;
         }
 
         /// <summary>
@@ -52,6 +53,7 @@ namespace Framework.Common.Commands
         /// <param name="commandTime">命令执行时间</param>
         /// <param name="result">执行结果</param>
         public CommandResult(string aggregateRoot, CommandStatus status, int commandTime = 0, string result = null)
+            : this()
         {
             this.AggregateRoot = aggregateRoot;
             this.Status = status;
