@@ -15,17 +15,17 @@ namespace Framework.Common.QueryServices
 
         public TQueryResult Get<TQueryResult>(object @object, string sql)
         {
-            return DoQuery<TQueryResult>((connection) => { return connection.Query<TQueryResult>(sql, @object).FirstOrDefault(); });
+            return DoQuery<TQueryResult>(connection => { return connection.Query<TQueryResult>(sql, @object).FirstOrDefault(); });
         }
 
         public IEnumerable<TQueryResult> GetAll<TQueryResult>(object @object, string sql)
         {
-            return DoQuery<IEnumerable<TQueryResult>>((connection) => { return connection.Query<TQueryResult>(sql, @object); });
+            return DoQuery<IEnumerable<TQueryResult>>(connection => { return connection.Query<TQueryResult>(sql, @object); });
         }
 
         public PagedResult<TQueryResult> GetAll<TQueryResult>(object @object, string sql, string countSql)
         {
-            return DoQuery<PagedResult<TQueryResult>>((connection) =>
+            return DoQuery<PagedResult<TQueryResult>>(connection =>
             {
                 PagedResult<TQueryResult> pagedResult = new PagedResult<TQueryResult>();
 
