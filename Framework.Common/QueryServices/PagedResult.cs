@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Framework.Common.QueryServices
 {
     /// <summary>
-    /// 
+    /// 分页对象
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">数据对象类型</typeparam>
     public class PagedResult<T>
     {
         /// <summary>
@@ -41,7 +41,7 @@ namespace Framework.Common.QueryServices
         public IEnumerable<T> Items { get; set; }
 
         /// <summary>
-        /// 
+        /// 构造函数
         /// </summary>
         public PagedResult()
         {
@@ -50,12 +50,10 @@ namespace Framework.Common.QueryServices
         }
 
         /// <summary>
-        /// 
+        /// 构造函数
         /// </summary>
-        /// <param name="currentPage"></param>
-        /// <param name="itemsPerPage"></param>
-        /// <param name="totalItems"></param>
-        /// <param name="items"></param>
+        /// <param name="currentPage">当前页</param>
+        /// <param name="itemsPerPage">每页记录数</param>
         public PagedResult(int currentPage, int itemsPerPage)
         {
             if (currentPage <= 0)
@@ -68,12 +66,12 @@ namespace Framework.Common.QueryServices
         }
 
         /// <summary>
-        /// 
+        /// 构造函数
         /// </summary>
-        /// <param name="currentPage"></param>
-        /// <param name="itemsPerPage"></param>
-        /// <param name="totalItems"></param>
-        /// <param name="items"></param>
+        /// <param name="currentPage">当前页</param>
+        /// <param name="itemsPerPage">每页记录数</param>
+        /// <param name="totalItems">总记录数</param>
+        /// <param name="items">当页记录</param>
         public PagedResult(int currentPage, int itemsPerPage, int totalItems, IEnumerable<T> items)
             : this(currentPage, itemsPerPage)
         {
