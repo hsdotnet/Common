@@ -4,7 +4,7 @@ using Framework.Common.Domain;
 
 namespace Framework.Common.Commands
 {
-    public interface ICommandContext : ICommandUnitOfWork, IDisposable
+    public interface ICommandContext : IUnitOfWork, IDisposable
     {
         /// <summary>
         /// 

@@ -82,7 +82,6 @@
     <Compile Include="Commands\ICommandContext.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ICommandService.cs" />
-    <Compile Include="Commands\ICommandUnitOfWork.cs" />
     <Compile Include="Configurations\Configuration.cs" />
     <Compile Include="Configurations\ConfigurationExtensions.cs" />
     <Compile Include="DisposableObject.cs" />

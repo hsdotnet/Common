@@ -80,5 +80,15 @@ namespace Framework.Common.Commands
 
             this._isOpenTransaction = false;
         }
+
+        public bool DistributedTransactionSupported
+        {
+            get { return false; }
+        }
+
+        public bool Committed
+        {
+            get { return false; }
+        }
     }
 }
