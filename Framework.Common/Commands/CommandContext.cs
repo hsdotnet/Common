@@ -56,18 +56,26 @@ namespace Framework.Common.Commands
 
                 this._isOpenTransaction = true;
             }
+
+            this.Committed = false;
         }
 
         public void Commit()
         {
-            if (this._transaction != null)
+            if (this._transaction != null && !this.Committed)
+            {
                 this._transaction.Commit();
+
+                this.Committed = true;
+            }
         }
 
         public void Rollback()
         {
             if (this._transaction != null)
                 this._transaction.Rollback();
+
+            this.Committed = false;
         }
 
         public void Dispose()
@@ -79,16 +87,19 @@ namespace Framework.Common.Commands
             this._connection.Dispose();
 
             this._isOpenTransaction = false;
+
+            this.Committed = true;
         }
 
         public bool DistributedTransactionSupported
         {
-            get { return false; }
+            get { return true; }
         }
 
         public bool Committed
         {
-            get { return false; }
+            get;
+            private set;
         }
     }
 }
