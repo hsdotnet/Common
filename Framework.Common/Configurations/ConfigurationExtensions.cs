@@ -1,6 +1,7 @@
 ﻿using Framework.Common.Serialization;
 using Framework.Common.Ioc;
 using Framework.Common.Logger;
+using Framework.Common.Cache;
 
 namespace Framework.Common.Configurations
 {
@@ -37,6 +38,17 @@ namespace Framework.Common.Configurations
         public static Configuration UseLog4Net(this Configuration configuration, string configFile = "log4net.config")
         {
             configuration.SetDefault<ILoggerFactory, Log4NetLoggerFactory>(new Log4NetLoggerFactory(configFile));
+            return configuration;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static Configuration UseDefaultCache(this Configuration configuration)
+        {
+            configuration.SetDefault<ICache, DefaultCache>(new DefaultCache());
             return configuration;
         }
     }

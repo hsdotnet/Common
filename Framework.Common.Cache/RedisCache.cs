@@ -8,11 +8,6 @@ namespace Framework.Common.Cache
 {
     public class RedisCache : ICache
     {
-        public string RegionName
-        {
-            get { throw new NotImplementedException(); }
-        }
-
         public bool Exists(string cacheKey)
         {
             throw new NotImplementedException();

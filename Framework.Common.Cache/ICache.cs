@@ -6,11 +6,6 @@
     public interface ICache
     {
         /// <summary>
-        /// 缓存区域名称
-        /// </summary>
-        string RegionName { get; }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="cacheKey"></param>

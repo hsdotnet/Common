@@ -116,6 +116,11 @@
     <Compile Include="Serialization\XmlObjectSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.Common.Cache\Framework.Common.Cache.csproj">
+      <Project>{b40ca65f-25a1-4f2e-953e-e2b5b70e30b0}</Project>
+      <Name>Framework.Common.Cache</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.Common.Ioc\Framework.Common.Ioc.csproj">
       <Project>{c5d9fbc7-569a-4c98-a5c3-82df0fe7f929}</Project>
       <Name>Framework.Common.Ioc</Name>
