@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Test", "Fr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Scheduler", "Framework.Common.Scheduler\Framework.Common.Scheduler.csproj", "{571E9F42-A909-400E-B851-5BFD2E0815A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Cache", "Framework.Common.Cache\Framework.Common.Cache.csproj", "{B40CA65F-25A1-4F2E-953E-E2B5B70E30B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{571E9F42-A909-400E-B851-5BFD2E0815A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{571E9F42-A909-400E-B851-5BFD2E0815A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{571E9F42-A909-400E-B851-5BFD2E0815A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B40CA65F-25A1-4F2E-953E-E2B5B70E30B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B40CA65F-25A1-4F2E-953E-E2B5B70E30B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B40CA65F-25A1-4F2E-953E-E2B5B70E30B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B40CA65F-25A1-4F2E-953E-E2B5B70E30B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
