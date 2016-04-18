@@ -35,7 +35,7 @@ namespace Framework.Common.Commands
                     context.Commit();
                 });
 
-                commandResult = new CommandResult(command.AggregateRoot, command.Id.ToString(), CommandStatus.Success, ts.Milliseconds);
+                commandResult = new CommandResult(command.AggregateRoot, CommandStatus.Success, command.Id.ToString(), ts.Milliseconds);
             }
             catch (Exception ex)
             {

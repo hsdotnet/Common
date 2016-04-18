@@ -50,29 +50,16 @@ namespace Framework.Common.Commands
         /// </summary>
         /// <param name="aggregateRoot">聚合根对象</param>
         /// <param name="status">命令状态</param>
+        /// <param name="aggregateRootId">聚合根主键</param>
         /// <param name="commandTime">命令执行时间</param>
         /// <param name="result">执行结果</param>
-        public CommandResult(string aggregateRoot, CommandStatus status, int commandTime = 0, string result = null)
-            : this()
+        public CommandResult(string aggregateRoot, CommandStatus status, string aggregateRootId = null, int commandTime = 0, string result = null)
         {
             this.AggregateRoot = aggregateRoot;
             this.Status = status;
+            this.AggregateRootId = aggregateRootId;
             this.CommandTime = commandTime;
             this.Result = result;
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="aggregateRoot">聚合根对象</param>
-        /// <param name="aggregateRootId">聚合根主键</param>
-        /// <param name="status">命令状态</param>
-        /// <param name="commandTime">命令执行时间</param>
-        /// <param name="result">执行结果</param>
-        public CommandResult(string aggregateRoot, string aggregateRootId, CommandStatus status, int commandTime = 0, string result = null)
-            : this(aggregateRoot, status, commandTime, result)
-        {
-            this.AggregateRootId = aggregateRootId;
         }
     }
 }
