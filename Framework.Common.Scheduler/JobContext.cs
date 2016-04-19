@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,12 +21,10 @@ namespace Framework.Common.Scheduler
         /// <param name="jobInfo">Job对象</param>
         public void AddJob(JobInfo jobInfo)
         {
-            using (IDbConnection connection = new SqlConnection(this._connectionString))
+            DoExecute(connection =>
             {
-                connection.Open();
-
                 connection.Execute("INSERT INTO [Sys_Job] ([JobName], [JobSeconds], [Description], [Status], [JobUrl], [IsValid]) VALUES (@JobName, @JobSeconds, @Description, @Status, @JobUrl, @IsValid)", jobInfo);
-            }
+            });
         }
 
         /// <summary>
@@ -47,12 +46,10 @@ namespace Framework.Common.Scheduler
         /// <param name="jobInfo">Job对象</param>
         public void UpdateStatus(JobInfo jobInfo)
         {
-            using (IDbConnection connection = new SqlConnection(this._connectionString))
+            DoExecute(connection =>
             {
-                connection.Open();
-
                 connection.Execute("UPDATE [Sys_Job] SET [Status] = @Status WHERE JobId = @Id", jobInfo);
-            }
+            });
         }
 
         /// <summary>
@@ -61,11 +58,23 @@ namespace Framework.Common.Scheduler
         /// <param name="id">主键Id</param>
         public void DeleteJob(int id)
         {
+            DoExecute(connection =>
+            {
+                connection.Execute("UPDATE [Sys_Job] SET [IsValid] = 0 WHERE JobId = @Id", new { Id = id });
+            });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        private void DoExecute(Action<IDbConnection> action)
+        {
             using (IDbConnection connection = new SqlConnection(this._connectionString))
             {
                 connection.Open();
 
-                connection.Execute("UPDATE [Sys_Job] SET [IsValid] = 0 WHERE JobId = @Id", new { Id = id });
+                action(connection);
             }
         }
     }
