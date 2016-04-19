@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Quartz;
 using Quartz.Impl;
@@ -12,30 +13,43 @@ namespace Framework.Common.Scheduler
     {
         private readonly Dictionary<string, IScheduler> _taskDict = new Dictionary<string, IScheduler>();
 
-        public void StartTask<Job>(string name, int seconds) where Job : BaseJob
+        public void StartTask<Job>(JobInfo jobInfo) where Job : BaseJob
         {
-            if (_taskDict.ContainsKey(name)) { return; }
+            if (!jobInfo.IsValid) { throw new Exception(string.Format("Job Id:【{0}】 Name:【{1}】已失效", jobInfo.JobId, jobInfo.JobName)); }
+
+            if (jobInfo.Status == JobStatus.Run) { return; }
+
+            if (_taskDict.ContainsKey(jobInfo.JobName)) { return; }
 
             IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
 
             IJobDetail job = JobBuilder.Create<Job>().Build();
 
-            ITrigger trigger = TriggerBuilder.Create().StartNow().WithSimpleSchedule(x => x.WithIntervalInSeconds(seconds).RepeatForever()).Build();
+            ITrigger trigger = TriggerBuilder.Create().StartNow().WithSimpleSchedule(x => x.WithIntervalInSeconds(jobInfo.JobSeconds).RepeatForever()).Build();
+
+            job.JobDataMap.Put("JobInfo", jobInfo);
 
             scheduler.ScheduleJob(job, trigger);
 
             scheduler.Start();
 
-            _taskDict.Add(name, scheduler);
+            jobInfo.Run();
+
+            _taskDict.Add(jobInfo.JobName, scheduler);
         }
 
-        public void StopTask(string name)
+        public void StopTask(JobInfo jobInfo)
         {
-            IScheduler scheduler;
-
-            if (_taskDict.TryGetValue(name, out scheduler))
+            if (jobInfo.Status == JobStatus.Run)
             {
-                scheduler.Shutdown(true);
+                IScheduler scheduler;
+
+                if (_taskDict.TryGetValue(jobInfo.JobName, out scheduler))
+                {
+                    scheduler.Shutdown(true);
+
+                    jobInfo.Stop();
+                }
             }
         }
     }

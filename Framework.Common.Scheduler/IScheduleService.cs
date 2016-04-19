@@ -2,8 +2,8 @@
 {
     public interface IScheduleService
     {
-        void StartTask<Job>(string name, int seconds) where Job : BaseJob;
+        void StartTask<Job>(JobInfo jobInfo) where Job : BaseJob;
 
-        void StopTask(string name);
+        void StopTask(JobInfo jobInfo);
     }
 }

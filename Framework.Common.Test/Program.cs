@@ -24,19 +24,30 @@ namespace Framework.Common.Test
 
         private static IScheduleService _schedule;
 
-        
+
 
         static void Main(string[] args)
         {
-            string str = null;
+            //string str = null;
 
-            EnsureHelper.NotNull(str, "用户名");
+            //EnsureHelper.NotNull(str, "用户名");
 
             Init();
 
             _schedule = ObjectContainer.Resolve<IScheduleService>();
 
-            _schedule.StartTask<OrderJob>("测试", 3);
+            JobInfo jobInfo = new JobInfo()
+            {
+                JobId = 1,
+                Description = "测试",
+                JobSeconds = 5,
+                IsValid = true,
+                JobName = "Test",
+                JobUrl = "http://localhost:13194/login/job",
+                Status = JobStatus.Init
+            };
+
+            _schedule.StartTask<HttpJob>(jobInfo);
         }
 
         static void Method2()
@@ -75,7 +86,7 @@ namespace Framework.Common.Test
 
     public class OrderJob : BaseJob
     {
-        public override void DoWork()
+        public override void DoWork(JobInfo job)
         {
             Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
