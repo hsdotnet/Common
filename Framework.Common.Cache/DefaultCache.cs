@@ -20,27 +20,27 @@ namespace Framework.Common.Cache
             return this._cache[cacheKey] != null;
         }
 
-        public bool Set(string cacheKey, object cacheValue, bool isAbsoluteExpire, int expireMinutes = 0)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        /// <param name="cacheValue"></param>
+        /// <param name="expireMinutes"></param>
+        /// <param name="isAbsoluteExpire">
+        /// true : 绝对过期时间，当超过设定时间，立即移除。
+        /// false : 滑动过期时间 当超过设定时间没再使用时，才移除缓存
+        /// </param>
+        public void Set(string cacheKey, object cacheValue, int expireMinutes = 0, bool isAbsoluteExpire = true)
         {
-            bool result = true;
-
             if (expireMinutes > 0)
             {
                 if (isAbsoluteExpire)
-                {
                     this._cache.Insert(cacheKey, cacheValue, null, DateTime.Now.AddMinutes(expireMinutes), System.Web.Caching.Cache.NoSlidingExpiration);
-                }
                 else
-                {
                     this._cache.Insert(cacheKey, cacheValue, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(expireMinutes));
-                }
             }
             else
-            {
                 this._cache.Insert(cacheKey, cacheValue);
-            }
-
-            return result;
         }
 
         public T Get<T>(string cacheKey)
@@ -48,16 +48,12 @@ namespace Framework.Common.Cache
             return (T)this._cache[cacheKey];
         }
 
-        public bool Remove(string cacheKey)
+        public void Remove(string cacheKey)
         {
-            bool result = true;
-
             if (this._cache[cacheKey] != null)
             {
                 this._cache.Remove(cacheKey);
             }
-
-            return result;
         }
 
         public void RemoveAll()

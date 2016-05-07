@@ -17,10 +17,12 @@
         /// </summary>
         /// <param name="cacheKey"></param>
         /// <param name="cacheValue"></param>
-        /// <param name="isAbsoluteExpire"></param>
         /// <param name="expireMinutes"></param>
-        /// <returns></returns>
-        bool Set(string cacheKey, object cacheValue, bool isAbsoluteExpire, int expireMinutes = 0);
+        /// <param name="isAbsoluteExpire">
+        /// true : 绝对过期时间，当超过设定时间，立即移除。
+        /// false : 滑动过期时间 当超过设定时间没再使用时，才移除缓存
+        /// </param>
+        void Set(string cacheKey, object cacheValue, int expireMinutes = 0, bool isAbsoluteExpire = true);
 
         /// <summary>
         /// 
@@ -35,7 +37,7 @@
         /// </summary>
         /// <param name="cacheKey"></param>
         /// <returns></returns>
-        bool Remove(string cacheKey);
+        void Remove(string cacheKey);
 
         /// <summary>
         /// 
