@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Web;
 
 namespace Framework.Common.Cache
@@ -25,7 +26,7 @@ namespace Framework.Common.Cache
         /// </summary>
         /// <param name="cacheKey"></param>
         /// <param name="cacheValue"></param>
-        /// <param name="expireMinutes"></param>
+        /// <param name="expireMinutes">0 : 永不过期</param>
         /// <param name="isAbsoluteExpire">
         /// true : 绝对过期时间，当超过设定时间，立即移除。
         /// false : 滑动过期时间 当超过设定时间没再使用时，才移除缓存
@@ -58,7 +59,7 @@ namespace Framework.Common.Cache
 
         public void RemoveAll()
         {
-            var caches = this._cache.GetEnumerator();
+            IDictionaryEnumerator caches = this._cache.GetEnumerator();
 
             while (caches.MoveNext())
             {
